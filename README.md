@@ -10,6 +10,21 @@ Create beautiful tier lists from your Letterboxd movie data. Rank your watched f
 
 </div>
 
+## 📸 Screenshots
+
+<div align="center">
+
+### Upload Your Letterboxd Export
+<img src="./assets/upload.png" alt="Upload Step" width="800"/>
+
+### Select Category
+<img src="./assets/category.png" alt="Category Selection" width="800"/>
+
+### Create Your Tier List
+<img src="./assets/tier.png" alt="Tier List Creation" width="800"/>
+
+</div>
+
 ## ✨ Features
 
 - 📦 **Upload Letterboxd Export** - Upload your ZIP file exported from Letterboxd
