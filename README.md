@@ -4,187 +4,147 @@
 
 # Letterboxd Tier Maker
 
-A production-ready TierMaker-style web application for ranking your Letterboxd movies by year, lists, or categories.
+Create beautiful tier lists from your Letterboxd movie data. Rank your watched films by year, lists, or categories with drag-and-drop functionality.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/JayeshVegda/Letterboxd-Tier-Maker)
 
 </div>
 
-## Overview
+## ✨ Features
 
-This application allows Letterboxd users to:
-1. Upload their Letterboxd ZIP export (contains diary.csv, watched.csv, lists, etc.)
-2. Select a category (years, lists, likes, watchlist, watched)
-3. Automatically fetch movie posters and metadata from TMDB
-4. Manually drag and drop movies into tier rows (no auto-ranking)
-5. Export the final tier list as PNG image and JSON
+- 📦 **Upload Letterboxd Export** - Upload your ZIP file exported from Letterboxd
+- 🎬 **Multiple Categories** - Organize by years, lists, likes, watchlist, or all watched films
+- 🖼️ **Auto Poster Fetching** - Automatically fetches movie posters from TMDB
+- 🎯 **Drag & Drop** - Intuitive drag-and-drop interface for organizing movies
+- 📊 **Custom Tiers** - Create and customize tier rows with colors and names
+- 💾 **Export Options** - Export your tier list as PNG image or JSON file
+- 📱 **Responsive Design** - Works perfectly on desktop and mobile devices
 
-## Tech Stack
+## 🚀 Quick Start
 
-- **Frontend**: Next.js 16 (App Router), React 19, Tailwind CSS 4
-- **Drag & Drop**: @dnd-kit
-- **CSV Parsing**: PapaParse
-- **Image Export**: html2canvas
-- **Backend**: Next.js API Routes
-- **Production Ready**: Optimized with security headers, compression, and SEO metadata
+### Prerequisites
 
-## Setup
+- Node.js 18.0.0 or higher
+- npm 9.0.0 or higher
+- A TMDB API key ([Get one here](https://www.themoviedb.org/settings/api))
 
-1. Install dependencies:
-```bash
-npm install
-```
+### Installation
 
-2. Get a TMDB API key:
-   - Sign up at [TMDB](https://www.themoviedb.org/settings/api)
-   - Create an API key
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/JayeshVegda/Letterboxd-Tier-Maker.git
+   cd Letterboxd-Tier-Maker
+   ```
 
-3. Create a `.env.local` file:
-```env
-TMDB_API_KEY=your_api_key_here
-NEXT_PUBLIC_SITE_URL=https://your-domain.com  # Optional: for production metadata
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-4. Run the development server:
-```bash
-npm run dev
-```
+3. **Set up environment variables**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   TMDB_API_KEY=your_tmdb_api_key_here
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   ```
 
-5. Open [http://localhost:3000](http://localhost:3000)
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Production Build
+5. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-1. Generate icons (see `scripts/generate-icons.md`):
-```bash
-# Use ImageMagick or online tools to generate required icons
-# Place them in the /public directory
-```
+## 📖 How to Use
 
-2. Build for production:
-```bash
-npm run build
-```
+1. **Export from Letterboxd**
+   - Go to your Letterboxd account settings
+   - Export your data as a ZIP file
+   - The ZIP should contain files like `diary.csv`, `watched.csv`, `lists/`, etc.
 
-3. Start production server:
-```bash
-npm start
-```
+2. **Upload to Letterboxd Tier Maker**
+   - Click "Upload Letterboxd Export"
+   - Select your ZIP file
+   - Wait for the upload to process
 
-## Production Features
+3. **Select a Category**
+   - Choose from: Years, Lists, Likes, Watchlist, or All Watched
+   - Select the specific year, list, or category you want to rank
 
-- ✅ Comprehensive SEO metadata (Open Graph, Twitter Cards)
-- ✅ Security headers (XSS protection, content type, frame options)
-- ✅ Image optimization with Next.js Image component
-- ✅ Compression enabled
-- ✅ PWA-ready with manifest.json
-- ✅ Error boundaries for graceful error handling
-- ✅ Rate limiting for TMDB API calls
-- ✅ Production-optimized logging (errors only in dev mode)
-- ✅ Responsive design with mobile support
+4. **Create Your Tier List**
+   - Drag movies from "Uncategorized" into tier rows
+   - Reorder movies within tiers by dragging
+   - Customize tier names and colors in settings
 
-## Data Flow
+5. **Export Your Tier List**
+   - Click "Export PNG" to save as an image
+   - Click "Export JSON" to save the data
 
-### 1. CSV Upload
-- User uploads `diary.csv` from Letterboxd
-- File is parsed via `/api/parse-csv` using PapaParse
-- Extracts: movie title, watched date, optional rating
-- Returns array of diary entries
+## 🛠️ Tech Stack
 
-### 2. Year Selection
-- Available years are extracted from watched dates
-- User selects a year
-- Movies watched in that year are filtered
+- **Next.js 16** - React framework
+- **React 19** - UI library
+- **Tailwind CSS** - Styling
+- **@dnd-kit** - Drag and drop functionality
+- **TMDB API** - Movie metadata and posters
 
-### 3. Metadata Enrichment
-- For each filtered movie, `/api/fetch-metadata` searches TMDB
-- Fetches: poster image, TMDB ID, release year, genres
-- Results are cached to avoid duplicate API calls
-- Movies without matches get fallback data
+## 📝 Environment Variables
 
-### 4. Tier Creation
-- Movies start in "Uncategorized" pool
-- User manually drags posters into tier rows
-- Movies can be reordered within tiers
-- Movies can be moved between tiers or back to uncategorized
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TMDB_API_KEY` | Yes | Your TMDB API key for fetching movie data |
+| `NEXT_PUBLIC_SITE_URL` | No | Your site URL (for metadata) |
 
-### 5. Export
-- **PNG Export**: Captures the visual tier list using html2canvas
-- **JSON Export**: Exports structured data with tier assignments and positions
+## 🌐 Deployment
 
-## Design Decisions
+### Deploy to Vercel (Recommended)
 
-### Frontend-First Architecture
-- All state managed in React Context
-- No database required (MVP)
-- Client-side drag & drop with @dnd-kit
-- Minimal backend logic (CSV parsing, TMDB API calls)
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+3. Click "Add New Project" and import your repository
+4. Add environment variables:
+   - `TMDB_API_KEY` - Your TMDB API key
+   - `NEXT_PUBLIC_SITE_URL` - Your Vercel URL (after first deploy)
+5. Click "Deploy"
 
-### No Auto-Ranking
-- Explicitly avoids AI or algorithmic ranking
-- User has full control over tier assignments
-- Respects the manual, visual nature of TierMaker
+Your app will be live in minutes! 🎉
 
-### TMDB Integration
-- Uses TMDB Search API for movie matching
-- Caches results in-memory (per session)
-- Gracefully handles missing posters or failed matches
-- Falls back to text-only display if poster unavailable
-
-### Drag & Drop Behavior
-- Posters draggable from uncategorized → tiers
-- Posters draggable between tiers
-- Posters draggable within tiers (reordering)
-- Posters draggable back to uncategorized
-- Visual feedback during drag operations
-
-### Tier System
-- Default tiers: Absolute Cinema, Gem Alert, Average, Okay, Delete Button
-- Each tier has a color label
-- Tiers are sortable (order preserved)
-- Movies maintain position within tiers
-
-## Known Limitations
-
-1. **No Persistence**: Tier lists are not saved between sessions
-2. **No Authentication**: MVP doesn't include user accounts
-3. **TMDB Rate Limits**: Large movie lists may hit API rate limits (consider batching)
-4. **CSV Format Assumptions**: Assumes standard Letterboxd CSV format
-5. **Image Export Quality**: PNG export quality depends on screen resolution
-6. **Cache Scope**: TMDB cache is in-memory and resets on server restart
-
-## Future Enhancements (v2)
-
-- Save tier lists to database
-- Share tier lists via URL
-- User authentication
-- Custom tier names and colors
-- Batch TMDB requests with rate limiting
-- Better error handling for ambiguous movie titles
-- Social features (viewing others' tier lists)
-
-## File Structure
+## 📂 Project Structure
 
 ```
-app/
-  api/
-    parse-csv/        # CSV parsing endpoint
-    fetch-metadata/   # TMDB API integration
-  components/
-    UploadStep.jsx
-    YearSelectionStep.jsx
-    TierMakerStep.jsx
-    TierRow.jsx
-    MoviePoster.jsx
-    ExportButton.jsx
-  context/
-    AppContext.jsx    # Global state management
-  page.jsx            # Main app entry
-  layout.jsx
-  globals.css
+letterbox_tiermaker/
+├── app/
+│   ├── api/           # API routes
+│   ├── components/    # React components
+│   ├── context/       # State management
+│   └── page.jsx        # Main page
+├── public/            # Static assets
+└── scripts/          # Utility scripts
 ```
 
-## Environment Variables
+## 🤝 Contributing
 
-- `TMDB_API_KEY`: Required. Your TMDB API key for fetching movie metadata.
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-## License
+## 📄 License
 
-MIT
+MIT License - feel free to use this project for your own purposes.
+
+## 🙏 Acknowledgments
+
+- [Letterboxd](https://letterboxd.com) - For the amazing movie tracking platform
+- [TMDB](https://www.themoviedb.org) - For movie metadata and posters
+- [Next.js](https://nextjs.org) - For the amazing framework
+
+---
+
+<div align="center">
+
+Made with ❤️ for movie lovers
+
+[Report Bug](https://github.com/JayeshVegda/Letterboxd-Tier-Maker/issues) · [Request Feature](https://github.com/JayeshVegda/Letterboxd-Tier-Maker/issues)
+
+</div>
