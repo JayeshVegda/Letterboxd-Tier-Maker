@@ -1,5 +1,6 @@
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://letterboxd-tiermaker.vercel.app'),
@@ -100,6 +101,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased">
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
