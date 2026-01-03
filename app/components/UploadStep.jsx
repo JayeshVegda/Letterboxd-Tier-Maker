@@ -123,12 +123,36 @@ export default function UploadStep({ onComplete }) {
       <div className="bg-[#1a1a1a]/80 backdrop-blur-sm border border-gray-800 rounded-2xl shadow-2xl p-8 md:p-10">
         <div className="mb-6">
           <h2 className="text-3xl font-bold mb-3 text-white">Upload Letterboxd Export</h2>
-          <p className="text-gray-400 leading-relaxed">
+          <p className="text-gray-400 leading-relaxed mb-3">
             Upload your <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded font-mono text-sm">ZIP file</span> exported from Letterboxd.
             The ZIP should contain CSV files like <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded font-mono text-sm">diary.csv</span>, 
             <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded font-mono text-sm">watched.csv</span>, 
             <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded font-mono text-sm">ratings.csv</span>, etc.
           </p>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-gray-500">Don't have your export yet?</span>
+            <a
+              href="https://letterboxd.com/data/export"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 transition-colors font-medium"
+            >
+              <span>Download from Letterboxd</span>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
+          </div>
           {hasExistingData && (
             <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl backdrop-blur-sm">
               <div className="flex items-start gap-3">
